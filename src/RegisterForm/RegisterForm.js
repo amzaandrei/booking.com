@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Calendar from 'react-calendar';
+import { Button } from '@material-ui/core';
 import 'react-calendar/dist/Calendar.css';
+import db from '../firebase';
 
 function RegisterForm() {
 
@@ -9,11 +11,15 @@ function RegisterForm() {
   }])
 
   const [stateForm, setStateForm] = useState({
+    firstName: '',
+    lastName: '',
+    emailAdress: '',
+    phoneNumber: '',
+    message: '',
     checkIn: '',
     checkOut: '',
     adults: 0,
     children: 0
-    
   })
  
   const onChangeDate = (date) => {
@@ -32,7 +38,6 @@ function RegisterForm() {
   }
 
   const setInput = e => {
-      e.preventDefault()
       const value = e.target.value;
       setStateForm({
         ...stateForm,
@@ -41,9 +46,67 @@ function RegisterForm() {
       console.log(stateForm)
   }
 
+  const sendPost = e => {
+    e.preventDefault();
+
+    db.collection('booked').add({
+      firstName: stateForm.firstName,
+      lastName: stateForm.lastName,
+      emailAdress: stateForm.emailAdress,
+      phoneNumber: stateForm.phoneNumber,
+      message: stateForm.message,
+      checkIn: stateForm.checkIn,
+      checkOut: stateForm.checkOut,
+      adults: stateForm.adults,
+      children: stateForm.children
+    })
+
+    // setDate([])
+    // setStateForm({})
+  }
+
   return (
     <div className="RegisterForm">
+        <Calendar
+          onChange={onChangeDate}
+          value={dates.selectedDate}
+          selectRange={true}
+          returnValue="range"
+        />
         <form>
+          <input
+            value={stateForm.firstName}
+            name="firstName"
+            onChange={e => setInput(e)}
+            className="registerForm__firstName"
+            placeholder="Your firstname..."
+            type="text"
+            />
+            <input
+            value={stateForm.lastName}
+            name="lastName"
+            onChange={e => setInput(e)}
+            className="registerForm__lastName"
+            placeholder="Your lastName..."
+            type="text"
+            />
+          <input
+            value={stateForm.emailAdress}
+            name="emailAdress"
+            onChange={e => setInput(e)}
+            className="registerForm__emailAdress"
+            placeholder="Your email..."
+            type="email"
+            pattern=".+@globex.com"
+            />
+          <input
+          value={stateForm.phoneNumber}
+          name="phoneNumber"
+          onChange={e => setInput(e)}
+          className="registerForm__phoneNumber"
+          placeholder="Please insert your phone number..."
+          type="phone"
+          />
           <input
             value={stateForm.checkIn}
             name="checkIn"
@@ -74,13 +137,22 @@ function RegisterForm() {
             className="registerForm__children"
             type="text"
             />
+          <textarea 
+            name="message"
+            value={stateForm.message}
+            onChange={e => setInput(e)}
+            className="registerForm__message"
+            rows="4" 
+            cols="50"
+            placeholder="Please insert any comments that you would like to know about!">
+          </textarea>
         </form>
-        <Calendar
-          onChange={onChangeDate}
-          value={dates.selectedDate}
-          selectRange={true}
-          returnValue="range"
-        />
+        <Button 
+          onClick={sendPost} 
+          type="submit"
+          className="registerForm__btn">
+            Post
+          </Button>
       </div>
   )
 
