@@ -11,6 +11,7 @@ import {
 import Header from './Header/Header'
 import SlideShow from './SlideShow/SlideShow'
 import RegisterForm from './RegisterForm/RegisterForm'
+import Bookings from './Bookings/Bookings'
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
         <Switch>
           <Route path="/mamaProject">
             <Header></Header>
-            <p>something new</p>
+            <Bookings></Bookings>
           </Route>
           <Route path="/">
             <Header></Header>
