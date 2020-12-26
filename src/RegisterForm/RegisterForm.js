@@ -4,7 +4,9 @@ import { Button } from "@material-ui/core"
 import "react-calendar/dist/Calendar.css"
 import db from "../firebase"
 
-function RegisterForm() {
+import './RegisterForm.css'
+
+function RegisterForm(props) {
   const [dates, setDate] = useState([
     {
       selectedDate: new Date(),
@@ -47,6 +49,8 @@ function RegisterForm() {
     console.log(stateForm)
   }
 
+  
+
   const sendPost = e => {
     e.preventDefault()
 
@@ -60,13 +64,16 @@ function RegisterForm() {
       checkOut: stateForm.checkOut,
       adults: stateForm.adults,
       children: stateForm.children,
-      pending: true,
       booked: false,
+      rejected: false,
     })
+
+    props.notifCall()
 
     // setDate([])
     // setStateForm({})
   }
+
 
   return (
     <div className="RegisterForm">

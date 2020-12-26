@@ -1,4 +1,13 @@
 .SlideShow{
     background-color: red;
-    height: 100px;
+    height: 350px;
 }
+
+.each-slide > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    height: 350px;
+  }
+  
