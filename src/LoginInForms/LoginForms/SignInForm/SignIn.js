@@ -70,11 +70,11 @@ function SignIn({props}) {
                             />
                         } label="Remember me" />
                     </Grid>
-                    <Link to = "/passwordReset">
-                        <Grid item>
-                            <Button disableFocusRipple disableRipple style={{ textTransform: "none" }} variant="text" color="primary">Forgot password ?</Button>
-                        </Grid>
-                    </Link>
+                    <Grid item>
+                        <Link to = "/passwordReset">
+                                <Button disableFocusRipple disableRipple style={{ textTransform: "none" }} variant="text" color="primary">Forgot password ?</Button>
+                        </Link>
+                    </Grid>
                 </Grid>
                 <Grid container justify="center" style={{ marginTop: '10px' }}>
                     <Button variant="outlined" color="primary" style={{ textTransform: "none" }}

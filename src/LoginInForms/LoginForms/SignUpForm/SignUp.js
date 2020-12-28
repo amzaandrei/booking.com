@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Paper, withStyles, Grid, TextField, Button, FormControlLabel, Checkbox } from '@material-ui/core';
 import { Face, Fingerprint } from '@material-ui/icons'
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 import { auth, generateUserDocument, signInWithGoogle } from '../../../firebase'
 
@@ -98,6 +98,11 @@ function SignIn() {
                                 color="primary"
                             />
                         } label="Remember me" />
+                    </Grid>
+                    <Grid item>
+                        <Link to="/signin" style={{ textDecoration: 'none'}}>
+                            <Button disableFocusRipple disableRipple style={{ textTransform: "none" }} variant="text" color="primary">Do you have already an account?</Button>
+                        </Link>
                     </Grid>
                 </Grid>
                 <Grid container justify="center" style={{ marginTop: '10px' }}>

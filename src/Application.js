@@ -68,8 +68,6 @@ function Application() {
     })
   }  
 
-  const user = "asdasd"
-
   return (
     <div className="App">
       <ReactNotification />
