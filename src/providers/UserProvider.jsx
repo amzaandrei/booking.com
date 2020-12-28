@@ -1,7 +1,5 @@
 import React, { Component, createContext } from "react";
 import { auth, generateUserDocument } from '../firebase'
-import axios from "axios"
-// import { useHistory } from "react-router-dom";
 
 export const UserContext = createContext({ user: null });
 
@@ -14,15 +12,11 @@ class UserProvider extends Component {
         auth.onAuthStateChanged(async userAuth => {    
             const user = await generateUserDocument(userAuth);
             this.setState({ user });
-            // storeUserToLocalDB(user)
+            userAuth
+            ? localStorage.setItem('authUser', JSON.stringify(user))
+            : localStorage.removeItem('authUser')
         });
     };
-
-    // storeUserToLocalDB = (user) => {
-    //     const response = await axios.post(
-
-    //     )
-    // }
 
     render() {
         return (

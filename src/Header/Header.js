@@ -1,15 +1,23 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import './Header.css';
-import { UserContext } from '../providers/UserProvider'
+// import { UserContext } from '../providers/UserProvider'
 
 import { Link } from "react-router-dom"
 
-
 function Header() {
 
-    const user = useContext(UserContext)
+    // const user = useContext(UserContext)
+    const [user, setUser] = useState()
 
-    console.log(user)
+    useEffect(() => {
+        const loggedInUser = localStorage.getItem("authUser");
+        if (loggedInUser) {
+            const foundUser = JSON.parse(loggedInUser);
+            setUser(foundUser);
+            console.log("here", user)
+        }
+    }, [])
+
 
     return(
         <div className="Header">
