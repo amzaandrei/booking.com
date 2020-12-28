@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 
-import db from "../firebase"
+import { db } from "../firebase"
 import BookCell from "./BookCell/BookCell"
 import FilterButton from "./FilterButton/FilterButton"
 import { store } from "react-notifications-component"

@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import Calendar from "react-calendar"
 import { Button } from "@material-ui/core"
 import "react-calendar/dist/Calendar.css"
-import db from "../firebase"
+import { db } from "../firebase"
 
 import './RegisterForm.css'
 
@@ -30,9 +30,9 @@ function RegisterForm(props) {
     ///aici nu se memoreaza si al doilea elem
     setDate([...dates, { selectedDate: date[1] }])
     ///
-    console.log(dates)
-    console.log(dates[0].selectedDate.getTime()) ///timestamp
-    console.log(dates[0].selectedDate.toISOString().substring(0, 10)) ///nice  formatted date
+    // console.log(dates)
+    // console.log(dates[0].selectedDate.getTime()) ///timestamp
+    // console.log(dates[0].selectedDate.toISOString().substring(0, 10)) ///nice  formatted date
     setStateForm({
       ...stateForm,
       checkIn: date[0].toISOString().substring(0, 10),
