@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
+import { UserContext } from './providers/UserProvider'
 
 import {
   Switch,
@@ -18,14 +19,15 @@ import ProfilPage from './LoginInForms/LoginForms/ProfilePageForm/ProfilePage'
 import PasswordReset from './LoginInForms/LoginForms/ResetPasswordPageForm/PasswordReset'
 
 import "react-notifications-component/dist/theme.css"
-import ProfilePage from './LoginInForms/LoginForms/ProfilePageForm/ProfilePage';
 
 function Application() {
 
   const location = useLocation()
 
+  const currUserType = useRef()
+  const user = useContext(UserContext)
+
   useEffect(() => {
-    console.log(location.state)
     const res = location.state
     if(res === "userLoggout"){
       popUpNotification("Logged out!","You are succesfully log out!","success")
@@ -34,7 +36,27 @@ function Application() {
     }else if(res === "userSignedUp"){
       popUpNotification("Woohoo","You are signed up!","success")
     }
+    return () => {
+      return res
+    }
   },[location])
+
+  useEffect(() => {
+    if(user != null){
+      console.log("now fetched")
+      currUserType.current = user.userType
+      console.log(currUserType.current)
+    }
+  })
+
+  // useEffect(() => {
+  //   const loggedInUser = localStorage.getItem("authUser");
+  //   const foundUser = JSON.parse(loggedInUser);
+  //   user.current = foundUser
+  //   console.log("aici", user.current)
+  //   console.log("aici2", foundUser)
+  // }, [user])
+
 
   const popUpNotification = (title, message, type) => {
     store.addNotification({
@@ -76,7 +98,12 @@ function Application() {
               <Header></Header>
               <Bookings></Bookings>
             </Route>
-            <ProfilePage path="/profile"></ProfilePage>
+            <Route path="/profile">
+              <Header></Header>
+              <ProfilPage></ProfilPage>
+              {/* <Bookings></Bookings> */}
+              {/* <GrantComponent component={currUserType} /> */}
+            </Route>
             <Route path="/signin">
               <Header></Header>
               <SignIn></SignIn>

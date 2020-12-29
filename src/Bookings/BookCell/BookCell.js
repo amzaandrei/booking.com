@@ -3,10 +3,6 @@ import CheckBoxSharpIcon from "@material-ui/icons/CheckBoxSharp"
 import ClearIcon from "@material-ui/icons/Clear"
 import IconButton from "@material-ui/core/IconButton"
 
-
-
-
-// function BookCell({ docsId, booking }) {
 function BookCell(props) {
   
   return (

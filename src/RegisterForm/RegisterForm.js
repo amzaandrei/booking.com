@@ -1,12 +1,17 @@
-import React, { useState } from "react"
+import React, { useContext, useState, useEffect } from "react"
 import Calendar from "react-calendar"
 import { Button } from "@material-ui/core"
 import "react-calendar/dist/Calendar.css"
 import { db } from "../firebase"
+import { UserContext } from '../providers/UserProvider'
 
 import './RegisterForm.css'
 
 function RegisterForm(props) {
+
+  const user = useContext(UserContext)
+  const [uid, setUID] = useState('')
+
   const [dates, setDate] = useState([
     {
       selectedDate: new Date(),
@@ -21,9 +26,16 @@ function RegisterForm(props) {
     message: "",
     checkIn: "",
     checkOut: "",
+    uid: "",
     adults: 0,
     children: 0,
   })
+
+  useEffect(() => {
+    if(user != null){
+      setUID(user.uid)
+    }
+  }, user)
 
   const onChangeDate = date => {
     setDate([...dates, { selectedDate: date[0] }])
@@ -64,6 +76,7 @@ function RegisterForm(props) {
       checkOut: stateForm.checkOut,
       adults: stateForm.adults,
       children: stateForm.children,
+      uid: uid,
       booked: false,
       rejected: false,
     })

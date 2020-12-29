@@ -2,21 +2,25 @@ import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from '../../../providers/UserProvider'
 import { auth } from '../../../firebase'
 import { useHistory } from "react-router-dom";
+import CustomerBookingCells from '../../../CustomerBookingPageCells/CustomerBookingCells'
 
 const ProfilePage = () => {
   const history = useHistory()
   const user = useContext(UserContext)
-  const [email, setEmail] = useState('')
-  const [displayName, setDisplayName] = useState('')
   
+  const [currUsr, setCurrUser] = useState({
+    uid: '',
+    email: '',
+    displayName: ''
+  })
+
   useEffect(() => {
     if(user != null){
-      console.log("now fetched")
-      const { email, displayName } = user
-      setEmail(email)
-      setDisplayName(displayName)
+      // console.log("now fetched", user)
+      const { uid, email, displayName } = user
+      setCurrUser({uid: uid, email: email, displayName: displayName})
     }
-  })
+  }, user)
 
   const logOutUser = () => {
     auth.signOut()
@@ -40,10 +44,12 @@ const ProfilePage = () => {
           className="border border-blue-300"
         ></div>
         <div className = "md:pl-4">
-        <h2 className = "text-2xl font-semibold">{ displayName }</h2>
-        <h3 className = "italic">{ email }</h3>
+        <h2 className = "text-2xl font-semibold">{ currUsr.displayName }</h2>
+        <h3 className = "italic">{ currUsr.email }</h3>
         </div>
       </div>
+      {/* <CustomerBookingCells userId ={ currUsr.uid }></CustomerBookingCells> */}
+      <CustomerBookingCells></CustomerBookingCells>
       <button className = "w-full py-3 bg-red-600 mt-4 text-white"
       onClick={logOutUser}>Sign out</button>
     </div>
