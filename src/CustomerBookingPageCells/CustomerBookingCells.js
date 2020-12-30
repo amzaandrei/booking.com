@@ -12,7 +12,9 @@ function CustomerBookingCells() {
     useEffect(() => {
         if(user != null){
             console.log("now fetchedggg", user)
-            db.collection("bookings").where("uid","==",user.uid).onSnapshot(snap => {
+            db.collection("bookings")
+            .where("uid","==",user.uid)
+            .where("userType","==","user").onSnapshot(snap => {
                 setBookings(
                   snap.docs.map(doc => {
                     return { id: doc.id, data: doc.data() }

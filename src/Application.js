@@ -7,9 +7,6 @@ import {
   useLocation
 } from "react-router-dom"
 
-import Header from './Header/Header'
-import SlideShow from './SlideShow/SlideShow'
-import RegisterForm from './RegisterForm/RegisterForm'
 import Bookings from './Bookings/Bookings'
 import { store } from "react-notifications-component"
 import ReactNotification from "react-notifications-component"
@@ -17,8 +14,8 @@ import SignIn from './LoginInForms/LoginForms/SignInForm/SignIn'
 import SignUp from './LoginInForms/LoginForms/SignUpForm/SignUp'
 import ProfilPage from './LoginInForms/LoginForms/ProfilePageForm/ProfilePage'
 import PasswordReset from './LoginInForms/LoginForms/ResetPasswordPageForm/PasswordReset'
-
-import "react-notifications-component/dist/theme.css"
+import MainPage from './mainPage/MainPage';
+import Header from './Header/Header';
 
 function Application() {
 
@@ -36,10 +33,9 @@ function Application() {
     }else if(res === "userSignedUp"){
       popUpNotification("Woohoo","You are signed up!","success")
     }
-    return () => {
-      return res
-    }
-  },[location])
+    // window.location.reload();
+    return res
+  },[])
 
   useEffect(() => {
     if(user != null){
@@ -74,49 +70,31 @@ function Application() {
     })
   }
 
-  const confirmPostBooking = () => {
-    store.addNotification({
-      title: "Wonderful!",
-      message: "Your booking was succesfully submitted!",
-      type: "success",
-      insert: "top",
-      container: "top-right",
-      animationIn: ["animate__animated", "animate__fadeIn"],
-      animationOut: ["animate__animated", "animate__fadeOut"],
-      dismiss: {
-        duration: 1400,
-        onScreen: true
-      }
-    })
-  }  
-
   return (
     <div className="App">
       <ReactNotification />
         <Switch>
             <Route path="/mamaProject">
-              <Header></Header>
+              <Header />
               <Bookings></Bookings>
             </Route>
             <Route path="/profile">
-              <Header></Header>
+              <Header />
               <ProfilPage></ProfilPage>
               {/* <Bookings></Bookings> */}
               {/* <GrantComponent component={currUserType} /> */}
             </Route>
             <Route path="/signin">
-              <Header></Header>
+              <Header />
               <SignIn></SignIn>
             </Route>
             <Route path="/signup">
-              <Header></Header>
+              <Header />
               <SignUp></SignUp>
             </Route>
             <PasswordReset path = "/passwordReset" />
             <Route path="/">
-              <Header></Header>
-              <SlideShow></SlideShow>
-              <RegisterForm notifCall={confirmPostBooking}></RegisterForm>
+              <MainPage></MainPage>
             </Route>
         </Switch>
     </div>

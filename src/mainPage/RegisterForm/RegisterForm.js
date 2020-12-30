@@ -2,8 +2,8 @@ import React, { useContext, useState, useEffect } from "react"
 import Calendar from "react-calendar"
 import { Button } from "@material-ui/core"
 import "react-calendar/dist/Calendar.css"
-import { db } from "../firebase"
-import { UserContext } from '../providers/UserProvider'
+import { db } from "../../firebase"
+import { UserContext } from '../../providers/UserProvider'
 
 import './RegisterForm.css'
 
