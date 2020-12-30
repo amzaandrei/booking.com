@@ -13,6 +13,8 @@ var firebaseConfig = {
 const firebaseApp = firebase.initializeApp(firebaseConfig)
 export const auth = firebase.auth()
 export const db = firebaseApp.firestore()
+export const apart1Ref = firebase.storage().ref('apartament1')
+export const apart2Ref = firebase.storage().ref('apartament2')
 
 const provider = new firebase.auth.GoogleAuthProvider()
 

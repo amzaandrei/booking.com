@@ -15,6 +15,7 @@ function MainPage() {
     let myApart2 = useRef()
     let bookingRef = useRef()
     const navbarProviderIndex = useContext(NavBarIndex)
+    const navBarProviderNames = useContext(NavBarNames)
 
     const confirmPostBooking = () => {
         store.addNotification({
@@ -46,7 +47,7 @@ function MainPage() {
         <div className="mainPage">
             <Header scrollTo={scrollTo}></Header>
             <div ref={bookingRef}>
-                <SlideShow></SlideShow>
+                <SlideShow apartament={navBarProviderNames}></SlideShow>
                 <RegisterForm notifCall={confirmPostBooking}></RegisterForm>
             </div>
             <div ref={myApart1} style={{ backgroundColor: "red", width: "100%", height: "5000px"}}>

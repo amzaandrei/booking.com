@@ -1,43 +1,55 @@
-import React from 'react';
+import { RestaurantTwoTone } from '@material-ui/icons';
+import React, { useState, useContext, useEffect } from 'react';
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css'
 
-import back1 from './slider_images/slide_1.jpg';
-import back2 from './slider_images/slide_2.jpg';
-import back3 from './slider_images/slide_3.jpg';
+import { apart1Ref, apart2Ref } from '../../firebase'
+import { NavBarNames } from '../../providers/NavBarProvider'
 
 
 import './SlideShow.css'
 
-// const slideImages = [
-//         'images/slide_1.jpg',
-//         'images/slide_2.jpg',
-//         'images/slide_3.jpg'
-//       ];
-
-const SlideShow = () => {
+const SlideShow = (props) => {
     
+    const [photosUrl, setPhotosUrl] = useState([])
+    const navBarProviderNames = useContext(NavBarNames)
+
+    useEffect(() => {
+        const urlResults = async () => {
+            const fetchData = await retrievePhotos(props.apartament)
+            setPhotosUrl(fetchData)
+        }        
+        urlResults()
+    }, [])
+
+    const retrievePhotos = async (apartament) => {
+        let apartRef = null
+        if(apartament == navBarProviderNames.apartamentOne)
+            apartRef = apart1Ref
+        else
+            apartRef = apart2Ref
+        let result = await apartRef.listAll()
+        let urlPromises = result.items.map(imageref => imageref.getDownloadURL())
+        return Promise.all(urlPromises)
+    }
+
+    const displayImages = () => {
+        return (
+            photosUrl.map((photoUrl, index) => (
+                <div key={index} className="each-slide">
+                    <div style={{'backgroundImage': `url(${photoUrl})`}}>
+                    <span>Slide 1</span>
+                    </div>
+                </div>
+            ))
+        )
+    }
       
     return (
       <div className="SlideShow">
           <div className="slide-container">
             <Slide>
-            <div className="each-slide">
-                {/* <div style={{'backgroundImage': `url(${slideImages[0]})`}}> */}
-                <div style={{'backgroundImage': `url(${back1})`}}>
-                <span>Slide 1</span>
-                </div>
-            </div>
-            <div className="each-slide">
-                <div style={{'backgroundImage': `url(${back2})`}}>
-                <span>Slide 2</span>
-                </div>
-            </div>
-            <div className="each-slide">
-                <div style={{'backgroundImage': `url(${back3})`}}>
-                <span>Slide 3</span>
-                </div>
-            </div>
+            {displayImages()}
             </Slide>
         </div>
       </div>
