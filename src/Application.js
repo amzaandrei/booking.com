@@ -16,6 +16,7 @@ import ProfilPage from './LoginInForms/LoginForms/ProfilePageForm/ProfilePage'
 import PasswordReset from './LoginInForms/LoginForms/ResetPasswordPageForm/PasswordReset'
 import MainPage from './mainPage/MainPage';
 import Header from './Header/Header';
+import ProfilePageDecider from './LoginInForms/LoginForms/ProfilePageForm/ProfilePageDecider';
 
 function Application() {
 
@@ -37,13 +38,13 @@ function Application() {
     return res
   },[])
 
-  useEffect(() => {
-    if(user != null){
-      console.log("now fetched")
-      currUserType.current = user.userType
-      console.log(currUserType.current)
-    }
-  })
+  // useEffect(() => {
+  //   if(user != null){
+  //     console.log("now fetched")
+  //     currUserType.current = user.userType
+  //     console.log(currUserType.current)
+  //   }
+  // })
 
   // useEffect(() => {
   //   const loggedInUser = localStorage.getItem("authUser");
@@ -80,9 +81,7 @@ function Application() {
             </Route>
             <Route path="/profile">
               <Header />
-              <ProfilPage></ProfilPage>
-              {/* <Bookings></Bookings> */}
-              {/* <GrantComponent component={currUserType} /> */}
+              <ProfilePageDecider />
             </Route>
             <Route path="/signin">
               <Header />

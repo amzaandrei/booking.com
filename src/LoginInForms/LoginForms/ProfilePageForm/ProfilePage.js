@@ -3,7 +3,7 @@ import { UserContext } from '../../../providers/UserProvider'
 
 import CustomerBookingCells from '../../../CustomerBookingPageCells/CustomerBookingCells'
 
-import './ProfilePage.css'
+// import './ProfilePage.css'
 
 const ProfilePage = () => {
   

@@ -5,6 +5,7 @@ import BookCell from "./BookCell/BookCell"
 import FilterButton from "./FilterButton/FilterButton"
 import { store } from "react-notifications-component"
 import ReactNotification from "react-notifications-component"
+import { Nav } from 'reactstrap'
 
 import "react-notifications-component/dist/theme.css"
 
@@ -115,8 +116,7 @@ function Bookings() {
     setBookings(updateBookingsData)
   }
 
-  const booksList = bookings
-  .filter(booking => FILTER_MAP[filter](booking)).map(booking => (
+  const booksList = bookings.filter(booking => FILTER_MAP[filter](booking)).map(booking => (
     <BookCell
       key={booking.id}
       docsId={booking.id}
@@ -129,9 +129,10 @@ function Bookings() {
   return (
     <div className="Bookings">
       <ReactNotification />
-      <div className="FilterButtons">{filterListBtts}</div>
-      <h1 id="bookingsLabel">{bookingsLeft}</h1>
-      <div className="BookingCells">{booksList}</div>
+      <Nav tabs>
+        {filterListBtts}
+      </Nav>
+        {booksList}
     </div>
   )
 }

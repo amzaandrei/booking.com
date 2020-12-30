@@ -1,25 +1,35 @@
-import React from "react"
-import CheckBoxSharpIcon from "@material-ui/icons/CheckBoxSharp"
-import ClearIcon from "@material-ui/icons/Clear"
-import IconButton from "@material-ui/core/IconButton"
+import React, { useContext } from "react"
+
+import { apartamentImgs } from '../../providers/NavBarProvider'
+import { NavBarNames} from '../../providers/NavBarProvider'
+
+import {
+  Card, CardImg, CardText, CardBody,
+  CardTitle, CardSubtitle, Button
+} from 'reactstrap';
+
 
 function BookCell(props) {
   
+  const apartImg = useContext(apartamentImgs)
+  const apartNames = useContext(NavBarNames)
   return (
-    <div className="BookCell">
-      <h1>
-        {props.booking.firstName} {props.booking.lastName}
-      </h1>
-      <p>
-        CheckIn: {props.booking.checkIn} CheckOut: {props.booking.checkOut}
-      </p>
-      <IconButton onClick={() => props.callConfirmNotif(props)}>
-        <CheckBoxSharpIcon></CheckBoxSharpIcon>
-      </IconButton>
-      <IconButton onClick={() => props.callDeclineNotif(props)}>
-        <ClearIcon></ClearIcon>
-      </IconButton>
-    </div>
+      <div>
+        <Card>
+          {props.booking.apartament === apartNames.apartamentOne ? (
+            <CardImg top width="100%" height="300px" src={apartImg.apartamentOne} alt="Card image cap" />
+          ) : (
+            <CardImg top width="100%" height="300px" src={apartImg.apartamentTwo} alt="Card image cap" />
+          )}
+        <CardBody>
+          <CardTitle tag="h5">{props.booking.firstName} {props.booking.lastName}</CardTitle>
+          <CardSubtitle tag="h6" className="mb-2 text-muted">From: {props.booking.checkIn} <br />Till: {props.booking.checkOut}</CardSubtitle>
+          <CardText>Customer message: { props.booking.message }</CardText>
+          <Button color="success" onClick={() => props.callConfirmNotif(props)}>success</Button>{' '}
+          <Button color="danger" onClick={() => props.callDeclineNotif(props)}>danger</Button>{' '}
+        </CardBody>
+      </Card>
+     </div>
   )
 }
 

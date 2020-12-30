@@ -26,7 +26,7 @@ export const generateUserDocument = async (user, additionalData) => {
     const { email, displayName } = user
     try {
       await userRef.set({
-        userType: 'user',
+        userType: (email === "iulian@ffem.com" ) ? "admin" : "user",
         displayName,
         email,
         ...additionalData

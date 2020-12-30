@@ -38,16 +38,16 @@ function MainPage() {
             window.scrollTo({ behavior: 'smooth', top: myApart1.current.offsetTop })
         }else if(index === navbarProviderIndex.apartamentTwo){
             window.scrollTo({ behavior: 'smooth', top: myApart2.current.offsetTop })
-        }else if(index === 3){
-            // window.scrollTo({ behavior: 'smooth', top: myRef.current.offsetTop })
+        }else if(index === navbarProviderIndex.bookingRef){
+             window.scrollTo({ behavior: 'smooth', top: bookingRef.current.offsetTop })
         }
     }
 
     return (
         <div className="mainPage">
             <Header scrollTo={scrollTo}></Header>
+            <SlideShow apartament={navBarProviderNames}></SlideShow>
             <div ref={bookingRef}>
-                <SlideShow apartament={navBarProviderNames}></SlideShow>
                 <RegisterForm notifCall={confirmPostBooking}></RegisterForm>
             </div>
             <div ref={myApart1} style={{ backgroundColor: "red", width: "100%", height: "5000px"}}>

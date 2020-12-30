@@ -14,7 +14,6 @@ import {
     DropdownToggle,
     DropdownMenu,
     DropdownItem,
-    NavbarText
   } from 'reactstrap';
 
 import { NavBarIndex, NavBarNames } from '../providers/NavBarProvider'
@@ -66,11 +65,26 @@ function Header(props) {
         })
         
       }
+    
+    const redirectUser = () => {
+      if(user.userType === 'user'){
+        history.push({
+          pathname: '/profile',
+          state: 'user'
+        })
+      }
+      else{
+        history.push({
+          pathname: '/profile',
+          state: 'admin'
+        })
+      }
+    }
 
     return(
-        <div>
+      <div className="Header">
       <Navbar color="light" light expand="md">
-        <NavbarBrand href="/">Butterflies</NavbarBrand>
+        <NavbarBrand href="/">{ navbarProviderNames.sitesName }</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
@@ -79,6 +93,9 @@ function Header(props) {
             </NavItem>
             <NavItem>
               <NavLink onClick={() => props.scrollTo(navbarProviderIndex.apartamentTwo)}>{ navbarProviderNames.apartamentTwo }</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink onClick={() => props.scrollTo(navbarProviderIndex.bookingRef)}>{ navbarProviderNames.bookingRef }</NavLink>
             </NavItem>
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
@@ -100,6 +117,9 @@ function Header(props) {
                 { user.displayName }
             </DropdownToggle>
             <DropdownMenu >
+                <DropdownItem onClick={() => redirectUser()}>
+                    Profile
+                </DropdownItem>
                 <DropdownItem onClick={() => logOutUser()}>
                     Sign out
                 </DropdownItem>

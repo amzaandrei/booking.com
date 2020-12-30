@@ -1,3 +1,15 @@
 .RegisterForm{
     padding-top: 100px;
+    margin: 50px;
+}
+.calendar-container{
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.calendar {
+    display: inline-block;   
+    height: 400px;
+    width: 800px;
 }

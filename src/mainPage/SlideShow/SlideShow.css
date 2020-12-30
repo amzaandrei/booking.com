@@ -1,6 +1,7 @@
 .SlideShow{
     background-color: red;
     height: 350px;
+    margin-top: 100px;
 }
 
 .each-slide > div {

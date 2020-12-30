@@ -49,7 +49,7 @@ const SlideShow = (props) => {
       <div className="SlideShow">
           <div className="slide-container">
             <Slide>
-            {displayImages()}
+                {displayImages()}
             </Slide>
         </div>
       </div>

@@ -1,15 +1,18 @@
 import React, { useContext, useState, useEffect } from "react"
 import Calendar from "react-calendar"
-import { Button } from "@material-ui/core"
 import "react-calendar/dist/Calendar.css"
 import { db } from "../../firebase"
 import { UserContext } from '../../providers/UserProvider'
+import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+
+import { NavBarNames} from '../../providers/NavBarProvider'
 
 import './RegisterForm.css'
 
 function RegisterForm(props) {
 
   const user = useContext(UserContext)
+  const apartNames = useContext(NavBarNames)
   const [uid, setUID] = useState('')
 
   const [dates, setDate] = useState([
@@ -27,6 +30,7 @@ function RegisterForm(props) {
     checkIn: "",
     checkOut: "",
     uid: "",
+    apartament: "",
     adults: 0,
     children: 0,
   })
@@ -41,10 +45,7 @@ function RegisterForm(props) {
     setDate([...dates, { selectedDate: date[0] }])
     ///aici nu se memoreaza si al doilea elem
     setDate([...dates, { selectedDate: date[1] }])
-    ///
-    // console.log(dates)
-    // console.log(dates[0].selectedDate.getTime()) ///timestamp
-    // console.log(dates[0].selectedDate.toISOString().substring(0, 10)) ///nice  formatted date
+
     setStateForm({
       ...stateForm,
       checkIn: date[0].toISOString().substring(0, 10),
@@ -58,7 +59,6 @@ function RegisterForm(props) {
       ...stateForm,
       [e.target.name]: value,
     })
-    console.log(stateForm)
   }
 
   
@@ -76,6 +76,7 @@ function RegisterForm(props) {
       checkOut: stateForm.checkOut,
       adults: stateForm.adults,
       children: stateForm.children,
+      apartament: stateForm.apartament,
       uid: uid,
       booked: false,
       rejected: false,
@@ -83,96 +84,85 @@ function RegisterForm(props) {
 
     props.notifCall()
 
-    // setDate([])
-    // setStateForm({})
   }
 
 
   return (
     <div className="RegisterForm">
-      <Calendar
-        onChange={onChangeDate}
-        value={dates.selectedDate}
-        selectRange={true}
-        returnValue="range"
-      />
-      <form>
-        <input
-          value={stateForm.firstName}
-          name="firstName"
-          onChange={e => setInput(e)}
-          className="registerForm__firstName"
-          placeholder="Your firstname..."
-          type="text"
-        />
-        <input
-          value={stateForm.lastName}
-          name="lastName"
-          onChange={e => setInput(e)}
-          className="registerForm__lastName"
-          placeholder="Your lastName..."
-          type="text"
-        />
-        <input
-          value={stateForm.emailAdress}
-          name="emailAdress"
-          onChange={e => setInput(e)}
-          className="registerForm__emailAdress"
-          placeholder="Your email..."
-          type="email"
-          pattern=".+@globex.com"
-        />
-        <input
-          value={stateForm.phoneNumber}
-          name="phoneNumber"
-          onChange={e => setInput(e)}
-          className="registerForm__phoneNumber"
-          placeholder="Please insert your phone number..."
-          type="phone"
-        />
-        <input
-          value={stateForm.checkIn}
-          name="checkIn"
-          onChange={e => setInput(e)}
-          className="registerForm__checkIn"
-          placeholder="select from the table the dates..."
-          type="text"
-        />
-        <input
-          value={stateForm.checkOut}
-          name="checkOut"
-          onChange={e => setInput(e)}
-          className="registerForm__checkOut"
-          placeholder="select from the table the dates..."
-          type="text"
-        />
-        <input
-          value={stateForm.adults}
-          name="adults"
-          onChange={e => setInput(e)}
-          className="registerForm__adults"
-          type="text"
-        />
-        <input
-          value={stateForm.children}
-          name="children"
-          onChange={e => setInput(e)}
-          className="registerForm__children"
-          type="text"
-        />
-        <textarea
-          name="message"
-          value={stateForm.message}
-          onChange={e => setInput(e)}
-          className="registerForm__message"
-          rows="4"
-          cols="50"
-          placeholder="Please insert any comments that you would like to know about!"
-        ></textarea>
-      </form>
-      <Button onClick={sendPost} type="submit" className="registerForm__btn">
-        Post
-      </Button>
+      <div className="calendar-container">
+        <div className="calendar">
+          <Calendar
+            onChange={onChangeDate}
+            value={dates.selectedDate}
+            selectRange={true}
+            returnValue="range"
+          />
+        </div>
+      </div>
+      <Form>
+        <FormGroup>
+          <Label>First Name</Label>
+          <Input value={stateForm.firstName} onChange={e => setInput(e)} type="text" name="firstName"  placeholder="First Name" />
+        </FormGroup>
+        <FormGroup>
+          <Label>Second Name</Label>
+          <Input value={stateForm.lastName} onChange={e => setInput(e)} type="text" name="lastName"  placeholder="Second Name" />
+        </FormGroup>
+        <FormGroup>
+          <Label>Email</Label>
+          <Input value={stateForm.emailAdress} onChange={e => setInput(e)} type="email" name="emailAdress" placeholder="Insert your email" />
+        </FormGroup>
+        <FormGroup>
+          <Label>Phone Number</Label>
+          <Input value={stateForm.phoneNumber} onChange={e => setInput(e)} type="tel" name="phoneNumber" placeholder="Phone Number" />
+        </FormGroup>
+        <FormGroup>
+          <Label>Check in</Label>
+          <Input value={stateForm.checkIn} onChange={e => setInput(e)} type="text" name="checkIn" placeholder="Select check in" />
+        </FormGroup>
+        <FormGroup>
+          <Label>Check out</Label>
+          <Input value={stateForm.checkOut} onChange={e => setInput(e)} type="text" name="checkOut" placeholder="Select check out" />
+        </FormGroup>
+        <FormGroup>
+          <Label>Apartament</Label>
+          <Input value={stateForm.apartament} onChange={e => setInput(e)} type="select" name="apartament">
+            <option>{apartNames.apartamentOne}</option>
+            <option>{apartNames.apartamentTwo}</option>
+          </Input>
+        </FormGroup>
+        <FormGroup>
+          <Label>Adults</Label>
+          <Input value={stateForm.adults} onChange={e => setInput(e)} type="select" name="adults">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </Input>
+        </FormGroup>
+        <FormGroup>
+          <Label>Children</Label>
+          <Input value={stateForm.children} onChange={e => setInput(e)} type="select" name="children">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </Input>
+        </FormGroup>
+        <FormGroup>
+          <Label for="exampleText">Text Area</Label>
+          <Input value={stateForm.message} onChange={e => setInput(e)} placeholder="Please insert any comment to be mentioned" type="textarea" name="message" />
+        </FormGroup>
+        {/* <FormGroup check>
+          <Label check>
+            <Input type="checkbox" />{' '}
+            Check me out
+          </Label>
+        </FormGroup> */}
+        <Button onClick={sendPost}>Submit</Button>
+      </Form>
     </div>
   )
 }
