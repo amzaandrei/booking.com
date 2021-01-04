@@ -11,7 +11,10 @@ class UserProvider extends Component {
     componentDidMount = async () => {
         auth.onAuthStateChanged(async userAuth => {    
             const user = await generateUserDocument(userAuth);
-            this.setState({ user });
+            if(user !== null)
+                this.setState({ user });
+            else
+                this.setState({ user: null })
             userAuth
             ? localStorage.setItem('authUser', JSON.stringify(user))
             : localStorage.removeItem('authUser')

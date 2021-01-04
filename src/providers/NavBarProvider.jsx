@@ -1,7 +1,7 @@
 import React, { createContext} from 'react'
 
-import apart1 from '../slider_images/slide_1.jpg'
-import apart2 from '../slider_images/slide_2.jpg'
+import apart1 from '../slider_images.nosync/slide_1.jpg'
+import apart2 from '../slider_images.nosync/slide_3.jpg'
 
 export const apartamentImgs = createContext({
     apartamentOne: apart1,

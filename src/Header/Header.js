@@ -29,7 +29,6 @@ function Header(props) {
         if (loggedInUser) {
             const foundUser = JSON.parse(loggedInUser);
             setUser(foundUser);
-            console.log("here", user)
         }
     }, [])
 

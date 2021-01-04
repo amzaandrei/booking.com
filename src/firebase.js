@@ -1,4 +1,5 @@
 import firebase, { firestore } from 'firebase'
+import 'firebase/messaging';
 
 var firebaseConfig = {
     apiKey: "AIzaSyCkOGcys40rOT399iz13j9KrThyxvup0jE",
@@ -13,6 +14,7 @@ var firebaseConfig = {
 const firebaseApp = firebase.initializeApp(firebaseConfig)
 export const auth = firebase.auth()
 export const db = firebaseApp.firestore()
+const messaging = firebase.messaging();
 export const apart1Ref = firebase.storage().ref('apartament1')
 export const apart2Ref = firebase.storage().ref('apartament2')
 
@@ -23,9 +25,10 @@ export const generateUserDocument = async (user, additionalData) => {
   const userRef = db.doc(`users/${user.uid}`)
   const snapshot = await userRef.get()
   if(!snapshot.exists) {
-    const { email, displayName } = user
+    const { uid, email, displayName } = user
     try {
       await userRef.set({
+        uid: uid,
         userType: (email === "iulian@ffem.com" ) ? "admin" : "user",
         displayName,
         email,
@@ -54,3 +57,28 @@ const getUserDocument = async uid => {
 export const signInWithGoogle = () => {
   auth.signInWithPopup(provider)
 }
+
+export const requestFirebaseNotificationPermission = () => {
+  if (firebase.messaging.isSupported()) {
+    return new Promise((resolve, reject) => {
+      messaging
+        .requestPermission()
+        .then(() => messaging.getToken())
+        .then((firebaseToken) => {
+          resolve(firebaseToken);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  } else {
+    console.log('no-support :(')
+  }
+}
+
+export const onMessageListener = () =>
+  new Promise((resolve) => {
+    messaging.onMessage((payload) => {
+      resolve(payload);
+    });
+  });

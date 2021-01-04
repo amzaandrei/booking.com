@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import { UserContext } from './providers/UserProvider'
 
 import {
@@ -18,13 +18,13 @@ import MainPage from './mainPage/MainPage';
 import Header from './Header/Header';
 import ProfilePageDecider from './LoginInForms/LoginForms/ProfilePageForm/ProfilePageDecider';
 
+import { db } from './firebase'
+
+import { requestFirebaseNotificationPermission } from './firebase'
+
 function Application() {
 
   const location = useLocation()
-
-  const currUserType = useRef()
-  const user = useContext(UserContext)
-
   useEffect(() => {
     const res = location.state
     if(res === "userLoggout"){
@@ -37,22 +37,6 @@ function Application() {
     // window.location.reload();
     return res
   },[])
-
-  // useEffect(() => {
-  //   if(user != null){
-  //     console.log("now fetched")
-  //     currUserType.current = user.userType
-  //     console.log(currUserType.current)
-  //   }
-  // })
-
-  // useEffect(() => {
-  //   const loggedInUser = localStorage.getItem("authUser");
-  //   const foundUser = JSON.parse(loggedInUser);
-  //   user.current = foundUser
-  //   console.log("aici", user.current)
-  //   console.log("aici2", foundUser)
-  // }, [user])
 
 
   const popUpNotification = (title, message, type) => {
@@ -69,6 +53,45 @@ function Application() {
         onScreen: true
       }
     })
+  }
+
+  const user = useContext(UserContext)
+  const [firebaseToken, setFirebaseTokens] = useState()
+
+  useEffect(() => {
+    if (user === null) return
+    console.log("meee",user)
+    console.log("tokkkkkeeennnnss", firebaseToken);
+    addBrowserTokenToFirebase(firebaseToken)
+  }, [user])
+
+  requestFirebaseNotificationPermission()
+      .then((firebaseToken) => {
+        setFirebaseTokens(firebaseToken)
+      })
+      .catch((err) => {
+        return err;
+      });
+
+  ///da crash the fiecare data cand dau sign out pt ca nu mai gaseste user
+  const addBrowserTokenToFirebase = (browser_token) => {
+
+      db.collection("users").doc(user.uid).update({
+        token: browser_token
+      })
+      let token_exists = false
+      const ref = db.collection("browser-tokens")
+      ref.onSnapshot(snap => {
+        snap.forEach(doc => {
+          if(doc.data().token === browser_token){
+            token_exists = true
+          }
+        })
+        if(!token_exists)
+        ref.add({
+          token: browser_token
+        })
+      })
   }
 
   return (

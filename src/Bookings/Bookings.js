@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react"
 
-import { db } from "../firebase"
+import { db, onMessageListener } from "../firebase"
 import BookCell from "./BookCell/BookCell"
 import FilterButton from "./FilterButton/FilterButton"
 import { store } from "react-notifications-component"
 import ReactNotification from "react-notifications-component"
 import { Nav } from 'reactstrap'
+import axios from 'axios'
 
 import "react-notifications-component/dist/theme.css"
+
+axios.defaults.baseURL = 'http://localhost:3010/v1'
 
 const ButtonsDATA = [
   { id: "btt-1", name: "All", completed: true },
@@ -26,9 +29,25 @@ const FILTER_NAMES = Object.keys(FILTER_MAP)
 function Bookings() {
   const [bookings, setBookings] = useState([])
   const [filter, setFilter] = useState("All")
+  const [messages, setMessages] = useState([]);
 
   const bookingsStrLength = bookings.length !== 1 ? 'bookings' : 'booking'
   const bookingsLeft = `${bookings.length} ${bookingsStrLength} remaining`
+
+  useEffect(() => {
+    axios.get("/messages").then((resp) => {
+      setMessages(resp.data.messages);
+    });
+  }, []);
+
+  onMessageListener().then((payload) => {
+    console.log("herererere")
+    const { title, body } = payload.data;
+    console.log("hereeee",`${title}; ${body}`)
+  })
+  .catch((err) => {
+    console.log(err)
+  })
 
   useEffect(() => {
     console.log(FILTER_MAP)
@@ -64,6 +83,20 @@ function Bookings() {
       booked: true,
     })
 
+    db.collection("users").onSnapshot(snap => {
+      snap.forEach(doc => {
+        if(bookCellProps.booking.uid === doc.data().uid){
+          axios.post('/messages', {name: doc.data().token, message: "Your booking was succesfully confirmed"})
+          .then(res => {
+            setMessages(res.data.messages.concat(messages))
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        }
+      })
+    })
+
     store.addNotification({
       title: "Wonderful",
       message: `${bookCellProps.booking.lastName} booking succeded`,
@@ -80,7 +113,8 @@ function Bookings() {
 
     toggleBooking(bookCellProps.docsId)
 
-  }  
+  }
+
 
   const declineBooking = (bookCellProps) => {
     
@@ -133,6 +167,19 @@ function Bookings() {
         {filterListBtts}
       </Nav>
         {booksList}
+      <div className="message-list">
+      <h3>Messages</h3>
+        <>
+          {messages.map((m, index) => {
+            const { name, message } = m;
+            return (
+              <div key={index}>
+                {name}: {message}
+              </div>
+            );
+          })}
+        </>
+    </div>
     </div>
   )
 }

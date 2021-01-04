@@ -13,7 +13,7 @@ function RegisterForm(props) {
 
   const user = useContext(UserContext)
   const apartNames = useContext(NavBarNames)
-  const [uid, setUID] = useState('')
+  const [currUser, setCurrUser] = useState()
 
   const [dates, setDate] = useState([
     {
@@ -29,7 +29,6 @@ function RegisterForm(props) {
     message: "",
     checkIn: "",
     checkOut: "",
-    uid: "",
     apartament: "",
     adults: 0,
     children: 0,
@@ -37,7 +36,12 @@ function RegisterForm(props) {
 
   useEffect(() => {
     if(user != null){
-      setUID(user.uid)
+      setCurrUser(user)
+      // setStateForm({
+      //   ...stateForm,
+      //   emailAdress: user.emailAdress,
+      //   uid: user.uid
+      // })
     }
   }, user)
 
@@ -77,7 +81,7 @@ function RegisterForm(props) {
       adults: stateForm.adults,
       children: stateForm.children,
       apartament: stateForm.apartament,
-      uid: uid,
+      uid: currUser.uid,
       booked: false,
       rejected: false,
     })
