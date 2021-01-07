@@ -21,6 +21,8 @@ import ProfilePageDecider from './LoginInForms/LoginForms/ProfilePageForm/Profil
 import { db } from './firebase'
 
 import { requestFirebaseNotificationPermission } from './firebase'
+import RegisterForm from './mainPage/RegisterForm/RegisterForm';
+import UpdatePricesPage from './UpdatePrices/UpdatePricesPage';
 
 function Application() {
 
@@ -98,6 +100,10 @@ function Application() {
     <div className="App">
       <ReactNotification />
         <Switch>
+            <Route path="/updatePrices">
+              <Header />
+              <UpdatePricesPage />
+            </Route>
             <Route path="/mamaProject">
               <Header />
               <Bookings></Bookings>

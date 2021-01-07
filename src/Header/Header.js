@@ -119,6 +119,9 @@ function Header(props) {
                 <DropdownItem onClick={() => redirectUser()}>
                     Profile
                 </DropdownItem>
+                <DropdownItem onClick={() => history.push('/updatePrices')}>
+                  Calendar
+                </DropdownItem>
                 <DropdownItem onClick={() => logOutUser()}>
                     Sign out
                 </DropdownItem>

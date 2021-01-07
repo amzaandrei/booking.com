@@ -46,7 +46,7 @@ function MainPage() {
     return (
         <div className="mainPage">
             <Header scrollTo={scrollTo}></Header>
-            <SlideShow apartament={navBarProviderNames}></SlideShow>
+            {/* <SlideShow apartament={navBarProviderNames}></SlideShow> */}
             <div ref={bookingRef}>
                 <RegisterForm notifCall={confirmPostBooking}></RegisterForm>
             </div>

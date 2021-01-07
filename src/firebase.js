@@ -1,4 +1,4 @@
-import firebase, { firestore } from 'firebase'
+import firebase from 'firebase'
 import 'firebase/messaging';
 
 var firebaseConfig = {

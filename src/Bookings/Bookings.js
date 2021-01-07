@@ -167,19 +167,6 @@ function Bookings() {
         {filterListBtts}
       </Nav>
         {booksList}
-      <div className="message-list">
-      <h3>Messages</h3>
-        <>
-          {messages.map((m, index) => {
-            const { name, message } = m;
-            return (
-              <div key={index}>
-                {name}: {message}
-              </div>
-            );
-          })}
-        </>
-    </div>
     </div>
   )
 }

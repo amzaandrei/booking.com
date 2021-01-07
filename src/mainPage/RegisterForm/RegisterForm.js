@@ -3,11 +3,12 @@ import Calendar from "react-calendar"
 import "react-calendar/dist/Calendar.css"
 import { db } from "../../firebase"
 import { UserContext } from '../../providers/UserProvider'
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 import { NavBarNames} from '../../providers/NavBarProvider'
 
 import './RegisterForm.css'
+import CalendarComp from "../../Calendar/CalendarComp"
 
 function RegisterForm(props) {
 
@@ -90,19 +91,12 @@ function RegisterForm(props) {
 
   }
 
-
   return (
     <div className="RegisterForm">
-      <div className="calendar-container">
-        <div className="calendar">
-          <Calendar
-            onChange={onChangeDate}
-            value={dates.selectedDate}
-            selectRange={true}
-            returnValue="range"
-          />
-        </div>
-      </div>
+      <CalendarComp 
+        onChange={onChangeDate}
+        value={dates.selectedDate}
+      />
       <Form>
         <FormGroup>
           <Label>First Name</Label>
