@@ -8,6 +8,7 @@ import "react-notifications-component/dist/theme.css"
 import Header from '../Header/Header'
 
 import { NavBarIndex, NavBarNames } from '../providers/NavBarProvider'
+import BackButton from '../BackButton/BackButton'
 
 function MainPage() {
 
@@ -56,6 +57,7 @@ function MainPage() {
             <div ref={myApart2} style={{ backgroundColor: "blue", width: "100%", height: "5000px"}}>
                 asdasdasd
             </div>
+            <BackButton />
         </div>
     )
 }

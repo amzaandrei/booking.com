@@ -1,0 +1,25 @@
+.backButtonComp {
+    background-color: green;
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    height: 75px;
+    width: 75px;
+    border-radius: 50%;
+    translate: transla;
+    display: flex;
+    justify-content: center;
+}
+
+.backButtonComp shown {
+    opacity: 1;
+}
+
+.backButtonComp hidden {
+    opacity: 0;
+}
+

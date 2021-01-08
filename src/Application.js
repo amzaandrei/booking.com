@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
 import { UserContext } from './providers/UserProvider'
 
+
 import {
   Switch,
   Route,
@@ -62,8 +63,8 @@ function Application() {
 
   useEffect(() => {
     if (user === null) return
-    console.log("meee",user)
-    console.log("tokkkkkeeennnnss", firebaseToken);
+    // console.log("meee",user)
+    // console.log("tokkkkkeeennnnss", firebaseToken);
     addBrowserTokenToFirebase(firebaseToken)
   }, [user])
 

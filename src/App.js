@@ -13,7 +13,6 @@ function App() {
 
   LogRocket.init('qsidio/mamaproject');
 
-
   return (
     <div className="App">
       <UserProvider>

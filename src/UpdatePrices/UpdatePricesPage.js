@@ -74,7 +74,6 @@ function UpdatePricesPage() {
                         <Input type="price" name="price" id="price" placeholder="Select your day to change the price" />
                     ) : (
                         <Input type="price" name="price" id="price" placeholder="Select your price for that day" onChange={e => setInput(e)} />
-                        
                     )}
                 </FormGroup>
                 <Button onClick={() => onSubmit()}>Submit</Button>

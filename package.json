@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.21.1",
     "bootstrap": "^4.5.3",
+    "classnames": "^2.2.6",
     "firebase": "^7.19.1",
     "logrocket": "^1.0.14",
     "react": "^16.13.1",
