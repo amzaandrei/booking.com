@@ -5,10 +5,6 @@ import Application from './Application'
 import UserProvider from './providers/UserProvider'
 import LogRocket from 'logrocket';
 
-import { db } from './firebase'
-
-import { requestFirebaseNotificationPermission } from './firebase'
-
 function App() {
 
   LogRocket.init('qsidio/mamaproject');

@@ -64,7 +64,7 @@ function UpdatePricesPage() {
         <div className="updatePricesPage">
             <CalendarComp 
             value={new Date()}
-            selectRange={false}
+            selectRange={true}
             onClickDay={onChangeDate}
             />
             <Form>

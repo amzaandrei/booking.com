@@ -6,6 +6,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import { registerServiceWorker } from './serviceWorker'
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'babel-polyfill'
 
 ReactDOM.render(
   <React.Fragment>

@@ -80,6 +80,24 @@ function Header(props) {
       }
     }
 
+    const configureName = () => {
+      if(user == null) return (<p>Profile</p>)
+      else return (<p>{ user.displayName }</p>)
+    }
+
+    const configureTab = () => {
+      if(user == null) return
+      else if(user.userType == "admin"){
+        return(
+          <DropdownItem onClick={() => history.push('/updatePrices')}>
+                  Calendar
+          </DropdownItem>
+        )
+      } else {
+        return
+      }
+    }
+
     return(
       <div className="Header">
       <Navbar color="light" light expand="md">
@@ -110,26 +128,20 @@ function Header(props) {
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>
-          { user ? (
-            <UncontrolledDropdown nav inNavbar>
+          <UncontrolledDropdown nav inNavbar>
             <DropdownToggle nav caret>
-                { user.displayName }
+              {configureName()}
             </DropdownToggle>
             <DropdownMenu >
                 <DropdownItem onClick={() => redirectUser()}>
                     Profile
                 </DropdownItem>
-                <DropdownItem onClick={() => history.push('/updatePrices')}>
-                  Calendar
-                </DropdownItem>
+                {configureTab()}
                 <DropdownItem onClick={() => logOutUser()}>
                     Sign out
                 </DropdownItem>
             </DropdownMenu>
-            </UncontrolledDropdown>
-            ) : (
-                <NavLink href="/signup">Sign up</NavLink>
-            )}
+          </UncontrolledDropdown>
         </Collapse>
       </Navbar>
     </div>

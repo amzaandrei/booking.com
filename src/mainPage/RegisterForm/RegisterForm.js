@@ -35,6 +35,8 @@ function RegisterForm(props) {
     children: 0,
   })
 
+  const [totalValue, setTotalValue] = useState(0)
+
   useEffect(() => {
     if(user != null){
       setCurrUser(user)
@@ -46,10 +48,28 @@ function RegisterForm(props) {
     }
   }, user)
 
+  const monthNames = ["ianuarie", "februarie", "martie", "aprilie", "mai", "iunie",
+    "iulie", "august", "septembrie", "octombrie", "noiembrie", "decembrie"
+    ];
+
+  const rangeDaysValue = (date1, date2) => {
+    db.collection("book-prices").doc(monthNames[date1.getMonth()]).onSnapshot(snap => {
+      var total = 0
+        snap.data().values.forEach((price,index) => {
+          if(date1.getDate() <= index && index <= date2.getDate()){
+            total += price
+          }
+        setTotalValue(total)
+      })
+    })
+  }
+
   const onChangeDate = date => {
     setDate([...dates, { selectedDate: date[0] }])
     ///aici nu se memoreaza si al doilea elem
     setDate([...dates, { selectedDate: date[1] }])
+
+    rangeDaysValue(date[0],date[1])
 
     setStateForm({
       ...stateForm,
@@ -83,6 +103,7 @@ function RegisterForm(props) {
       children: stateForm.children,
       apartament: stateForm.apartament,
       uid: currUser.uid,
+      amount: totalValue,
       booked: false,
       rejected: false,
     })
@@ -96,8 +117,12 @@ function RegisterForm(props) {
       <CalendarComp 
         onChange={onChangeDate}
         value={dates.selectedDate}
+        selectRange={true}
       />
       <Form>
+        <FormGroup>
+          <Label>Total value: {totalValue}</Label>
+        </FormGroup>
         <FormGroup>
           <Label>First Name</Label>
           <Input value={stateForm.firstName} onChange={e => setInput(e)} type="text" name="firstName"  placeholder="First Name" />
