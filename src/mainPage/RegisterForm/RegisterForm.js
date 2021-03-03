@@ -30,7 +30,7 @@ function RegisterForm(props) {
     message: "",
     checkIn: "",
     checkOut: "",
-    apartament: "",
+    apartament: "Apartament1",
     adults: 0,
     children: 0,
   })

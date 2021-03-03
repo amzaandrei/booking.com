@@ -24,7 +24,6 @@ import { db } from './firebase'
 import { requestFirebaseNotificationPermission } from './firebase'
 import RegisterForm from './mainPage/RegisterForm/RegisterForm';
 import UpdatePricesPage from './UpdatePrices/UpdatePricesPage';
-import CheckOut from './CheckOut/CheckOut';
 
 function Application() {
 

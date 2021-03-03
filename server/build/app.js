@@ -41,7 +41,10 @@ app.use(_express.default.urlencoded({
 app.use((0, _cookieParser.default)());
 app.use((0, _cors.default)('*'));
 app.use('/v1', _index.default);
-app.use('/api', router); // app.use(express.static(path.join(__dirname, '../build')))
+app.use('/api', router);
+app.get('http://madatschkopf.sites.uibk.eu/calc', function (req, res) {
+  console.log("hei, hei");
+}); // app.use(express.static(path.join(__dirname, '../build')))
 
 app.use(function (err, req, res, next) {
   res.status(400).json({

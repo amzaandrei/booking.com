@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import './Header.css';
 import { auth } from '../firebase'
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import {
     Collapse,
     Navbar,
@@ -19,6 +19,7 @@ import {
 import { NavBarIndex, NavBarNames } from '../providers/NavBarProvider'
 
 function Header(props) {
+    const location = useLocation()
     const history = useHistory()
     const [user, setUser] = useState()
     const navbarProviderIndex = useContext(NavBarIndex)
@@ -106,13 +107,25 @@ function Header(props) {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <NavLink onClick={() => props.scrollTo(navbarProviderIndex.apartamentOne)}>{ navbarProviderNames.apartamentOne }</NavLink>
+              {/* {location.pathname === '/' ? (
+                <NavLink onClick={() => props.scrollTo(navbarProviderIndex.apartamentOne)}>{ navbarProviderNames.apartamentOne }</NavLink>
+              ) : ( */}
+                <NavLink onClick={() => history.push({pathname: '/', state: 'scrollToApart1'})}>{ navbarProviderNames.apartamentOne }</NavLink>
+              {/* )} */}
             </NavItem>
             <NavItem>
-              <NavLink onClick={() => props.scrollTo(navbarProviderIndex.apartamentTwo)}>{ navbarProviderNames.apartamentTwo }</NavLink>
+              {/* {location.pathname === '/' ? (
+                <NavLink onClick={() => props.scrollTo(navbarProviderIndex.apartamentTwo)}>{ navbarProviderNames.apartamentTwo }</NavLink>
+              ) : ( */}
+                <NavLink onClick={() => history.push({pathname: '/', state: 'scrollToApart2'})}>{ navbarProviderNames.apartamentTwo }</NavLink>
+              {/* )} */}
             </NavItem>
             <NavItem>
-              <NavLink onClick={() => props.scrollTo(navbarProviderIndex.bookingRef)}>{ navbarProviderNames.bookingRef }</NavLink>
+              {/* {location.pathname === '/' ? (
+                <NavLink onClick={() => props.scrollTo(navbarProviderIndex.bookingRef)}>{ navbarProviderNames.bookingRef }</NavLink> 
+              ): ( */}
+                <NavLink onClick={() => history.push({pathname: '/', state: 'bookingRef'})}>{ navbarProviderNames.bookingRef }</NavLink> 
+              {/* )} */}
             </NavItem>
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
@@ -128,7 +141,7 @@ function Header(props) {
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>
-          <UncontrolledDropdown nav inNavbar>
+          <UncontrolledDropdown nav inNavbar style={{"list-style-type": "none"}}>
             <DropdownToggle nav caret>
               {configureName()}
             </DropdownToggle>

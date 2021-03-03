@@ -2,22 +2,3 @@
     padding-top: 100px;
     margin: 50px;
 }
-.calendar-container{
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.calendar {
-    display: inline-block;   
-}
-
-.cal {
-    height: 370px;
-    width: 100%;
-    margin-bottom: 30px;
-}
-
-.react-calendar__tile {
-    height: 55px;
-}
